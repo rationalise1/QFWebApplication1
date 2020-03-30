@@ -14,6 +14,11 @@ namespace QFWebApiCore
     {
         public static void Main(string[] args)
         {
+            RunWebHost(args);
+        }
+
+        public static void RunWebHost(string[] args)
+        {
             CreateWebHostBuilder(args).Build().Run();
         }
 

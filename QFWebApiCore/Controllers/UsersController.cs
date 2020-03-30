@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ConsoleApp1;
+using EFCoreWrapper;
 
 namespace QFWebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UsersController : ControllerBase
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            Users user = new Users();
+            string result = user.GetUsers();
+            return result;
         }
 
         // GET api/values/5
@@ -23,7 +25,19 @@ namespace QFWebApiCore.Controllers
         public ActionResult<string> Get(int id)
         {
             //return "value";
-            return ConsoleApp1.Program.GetDBValues();
+            Users user= new Users();
+            string result = user.GetUser(id);
+            return result;
+        }
+
+        [HttpGet]
+        [Route("New")]
+        public ActionResult<string> Get([FromHeader] string userName, string email, 
+            string alias, string firstName, string lastName, string roleType )
+        {
+            //return "value";
+            Users users = new Users();
+            return users.WriteDBValues(userName, email, alias, firstName, lastName, roleType);
         }
 
         // POST api/values
